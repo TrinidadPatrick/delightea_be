@@ -13,9 +13,15 @@ module.exports.addProduct = async (req, res) => {
 
 module.exports.getProducts = async (req, res) => {
     try {
-        const products = await Products.find();
-        res.status(200).json({products: products});
+        const products = await Products.find().populate({
+            path: 'addons',
+            select: 'addon_name addon_price'
+        }).populate({
+            path: 'category_id',
+            select: 'category_name'
+        });
+        return res.status(200).json({products: products})
     } catch (error) {
-        res.status(500).json({ message: 'Error getting products' });
+        return res.status(500).json({ message: 'Error getting products' });
     }
 };
