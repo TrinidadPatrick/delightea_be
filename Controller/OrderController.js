@@ -48,3 +48,13 @@ module.exports.countCurrentDayOrders = async (req, res) => {
     return res.status(500).json({message : error.message});
   }
 }
+
+module.exports.updateOrderStatus = async (req, res) => {
+  const {order_id, status} = req.body;
+  try {
+    const response = await Order.findOneAndUpdate({order_id}, {status: status});
+    res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({message : error.message});
+  }
+}
