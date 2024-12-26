@@ -11,6 +11,27 @@ module.exports.addProduct = async (req, res) => {
     }
 };
 
+module.exports.updateProduct = async (req, res) => {
+    const { product_name, product_price, image, variants, addons, category_id} = req.body;
+    const {_id} = req.params;
+    try {
+        const product = await Products.findOneAndUpdate({_id : _id}, {product_name, product_price, image, variants, addons, category_id});
+        res.status(200).json({product: product});
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating product', error });
+    }
+};
+
+module.exports.deleteProduct = async (req, res) => {
+    const {_id} = req.params;
+    try {
+        const product = await Products.findOneAndDelete({_id : _id});
+        res.status(200).json({product: product});
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting product', error });
+    }
+};
+
 module.exports.getProducts = async (req, res) => {
     try {
         const products = await Products.find().populate({

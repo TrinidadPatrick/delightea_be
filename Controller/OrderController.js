@@ -23,6 +23,24 @@ module.exports.getOrders = async (req, res) => {
   }
 }
 
+module.exports.getDailyOrders = async (req, res) => {
+  const {date} = req.params
+  const newDate = new Date(date)
+  const dateFrom = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 0, 0, 0, 0);
+  const dateTo = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 23, 59, 59, 999);
+  
+  try {
+    const response = await Order.find({
+      created_at: { $gte: dateFrom, $lte: dateTo },
+      $or: [{ status: 'Done' }, { status: 'Cancelled' }]
+    });
+
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({message : error.message});
+  }
+}
+
 module.exports.getCurrentDayOrders = async (req, res) => {
   const date = new Date();
   const dateFrom = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
