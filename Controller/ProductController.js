@@ -46,3 +46,13 @@ module.exports.getProducts = async (req, res) => {
         return res.status(500).json({ message: 'Error getting products' });
     }
 };
+
+module.exports.changeStatus = async (req, res) => {
+    const {_id, status} = req.body;
+    try {
+        const product = await Products.findOneAndUpdate({_id : _id}, {status});
+        res.status(200).json({product: product});
+    } catch (error) {
+        res.status(500).json({ message: 'Error changing status', error });
+    }
+};

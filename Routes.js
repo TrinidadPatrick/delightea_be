@@ -1,7 +1,7 @@
 const {Router} = require('express');
 const { getCategories, addCategory } = require('./Controller/CategoryController');
 const { getAddons, addAddon } = require('./Controller/AddonController');
-const { addProduct, getProducts, updateProduct, deleteProduct } = require('./Controller/ProductController');
+const { addProduct, getProducts, updateProduct, deleteProduct, changeStatus } = require('./Controller/ProductController');
 const { createOrder, getOrders, getCurrentDayOrders, countCurrentDayOrders, updateOrderStatus, getDailyOrders } = require('./Controller/OrderController');
 const { addExpense, getExpenses, deleteExpense, updateExpense, computeExpenses } = require('./Controller/ExpenseController');
 const { getCash, addCash } = require('./Controller/CashController');
@@ -17,6 +17,7 @@ router.post('/addProduct', addProduct)
 router.get('/getProducts', getProducts)
 router.patch('/updateProduct/:_id', updateProduct)
 router.delete('/deleteProduct/:_id', deleteProduct)
+router.patch('/changeStatus/:_id', changeStatus)
 
 router.post('/createOrder',createOrder)
 router.post('/getOrders',getOrders)
