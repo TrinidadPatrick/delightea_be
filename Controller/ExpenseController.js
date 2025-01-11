@@ -1,9 +1,9 @@
 const Expense = require('../Models/ExpenseModel');
 
 module.exports.addExpense = async (req, res) => {
-    const {item, total_price, expenseDate} = req.body;
+    const {item, total_price,expenseCategory, expenseDate} = req.body;
     try {
-        const response = await Expense.create({item, total_price, expenseDate});
+        const response = await Expense.create({item, total_price,expenseCategory, expenseDate});
         res.status(200).json({expense: response});
     } catch (error) {
         res.status(500).json({ message: 'Error adding expense', error });
@@ -32,9 +32,9 @@ module.exports.deleteExpense = async (req, res) => {
 };
 
 module.exports.updateExpense = async (req, res) => {
-    const {_id, item, total_price} = req.body;
+    const {_id, item,expenseCategory, total_price} = req.body;
     try {
-        const response = await Expense.findOneAndUpdate({_id : _id}, {item, total_price});
+        const response = await Expense.findOneAndUpdate({_id : _id}, {item,expenseCategory, total_price});
         res.status(200).json({expense: response});
     } catch (error) {
         res.status(500).json({ message: 'Error updating expense', error });

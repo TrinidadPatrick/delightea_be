@@ -10,7 +10,7 @@ const server = http.createServer(app);
 
 app.use(cors({
     credentials: true,
-    origin: ['http://localhost:3000']
+    origin: ['http://localhost:3000', 'http://localhost:8081']
 }))
 app.use(cookieParser())
 app.use(express.json())
