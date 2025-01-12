@@ -24,7 +24,7 @@ module.exports.getOrders = async (req, res) => {
 }
 
 module.exports.getDailyOrders = async (req, res) => {
-  const {date} = req.params
+  const date = req.query.date
   const newDate = new Date(date)
   const dateFrom = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 0, 0, 0, 0);
   const dateTo = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 23, 59, 59, 999);

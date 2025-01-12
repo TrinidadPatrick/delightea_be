@@ -23,7 +23,7 @@ router.post('/createOrder',createOrder)
 router.post('/getOrders',getOrders)
 router.post('/getCurrentDayOrders', getCurrentDayOrders)
 router.get('/countCurrentDayOrders', countCurrentDayOrders)
-router.get('/getDailyOrders/:date', getDailyOrders)
+router.get('/getDailyOrders', getDailyOrders)
 router.patch('/updateOrderStatus', updateOrderStatus)
 
 router.post('/addExpense', addExpense)
