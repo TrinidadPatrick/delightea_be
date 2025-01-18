@@ -43,7 +43,6 @@ module.exports.updateExpense = async (req, res) => {
 
 module.exports.computeExpenses = async (req, res) => {
     const dateString = req.query.date;
-    console.log(dateString)
     try {
         const response = await Expense.find({expenseDate : dateString});
         const totalExpenses = response.reduce((acc, item) => acc + item.total_price, 0);

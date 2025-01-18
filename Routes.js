@@ -2,7 +2,7 @@ const {Router} = require('express');
 const { getCategories, addCategory } = require('./Controller/CategoryController');
 const { getAddons, addAddon } = require('./Controller/AddonController');
 const { addProduct, getProducts, updateProduct, deleteProduct, changeStatus } = require('./Controller/ProductController');
-const { createOrder, getOrders, getCurrentDayOrders, countCurrentDayOrders, updateOrderStatus, getDailyOrders } = require('./Controller/OrderController');
+const { createOrder, getOrders, getCurrentDayOrders, countCurrentDayOrders, updateOrderStatus, getDailyOrders, updateOrder } = require('./Controller/OrderController');
 const { addExpense, getExpenses, deleteExpense, updateExpense, computeExpenses } = require('./Controller/ExpenseController');
 const { getCash, addCash } = require('./Controller/CashController');
 const router = Router();
@@ -25,6 +25,7 @@ router.post('/getCurrentDayOrders', getCurrentDayOrders)
 router.get('/countCurrentDayOrders', countCurrentDayOrders)
 router.get('/getDailyOrders', getDailyOrders)
 router.patch('/updateOrderStatus', updateOrderStatus)
+router.post('/updateOrder', updateOrder)
 
 router.post('/addExpense', addExpense)
 router.get('/getExpenses', getExpenses)

@@ -11,6 +11,16 @@ module.exports.createOrder = async (req, res) => {
   }
 }
 
+module.exports.updateOrder = async (req, res) => {
+  const {order_id, items, total_price, change_price, customer_name} = req.body;
+  try {
+    const response = await Order.findOneAndUpdate({order_id}, {items, total_price, change_price, customer_name});
+    res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({message : error.message});
+  }
+}
+
 module.exports.getOrders = async (req, res) => {
   const dateFrom = req.query.dateFrom;
   const dateTo = req.query.dateTo;
