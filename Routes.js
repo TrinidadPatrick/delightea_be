@@ -37,6 +37,6 @@ router.get('/computeExpenses', computeExpenses)
 router.get('/getCash', getCash)
 router.post('/addCash', addCash)
 
-router.get('keepAlive', keepAlive)
+router.get('/keepAlive', keepAlive)
 
 module.exports = router;
