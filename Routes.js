@@ -5,6 +5,7 @@ const { addProduct, getProducts, updateProduct, deleteProduct, changeStatus } = 
 const { createOrder, getOrders, getCurrentDayOrders, countCurrentDayOrders, updateOrderStatus, getDailyOrders, updateOrder } = require('./Controller/OrderController');
 const { addExpense, getExpenses, deleteExpense, updateExpense, computeExpenses } = require('./Controller/ExpenseController');
 const { getCash, addCash } = require('./Controller/CashController');
+const { keepAlive } = require('./Controller/KeepAliveController');
 const router = Router();
 
 router.get('/getCategories', getCategories)
@@ -35,5 +36,7 @@ router.get('/computeExpenses', computeExpenses)
 
 router.get('/getCash', getCash)
 router.post('/addCash', addCash)
+
+router.get('keepAlive', keepAlive)
 
 module.exports = router;
