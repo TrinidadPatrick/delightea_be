@@ -1,3 +1,5 @@
 module.exports.keepAlive = (req, res) => {
-  return 'ok'
+  return res.status(200).json({
+    message: 'Keep Alive'
+    });
 };
