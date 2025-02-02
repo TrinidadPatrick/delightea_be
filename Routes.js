@@ -2,10 +2,11 @@ const {Router} = require('express');
 const { getCategories, addCategory } = require('./Controller/CategoryController');
 const { getAddons, addAddon } = require('./Controller/AddonController');
 const { addProduct, getProducts, updateProduct, deleteProduct, changeStatus } = require('./Controller/ProductController');
-const { createOrder, getOrders, getCurrentDayOrders, countCurrentDayOrders, updateOrderStatus, getDailyOrders, updateOrder } = require('./Controller/OrderController');
+const { createOrder, getOrders, getCurrentDayOrders, countCurrentDayOrders, updateOrderStatus, getDailyOrders, updateOrder, getMonthlyOrders } = require('./Controller/OrderController');
 const { addExpense, getExpenses, deleteExpense, updateExpense, computeExpenses } = require('./Controller/ExpenseController');
 const { getCash, addCash } = require('./Controller/CashController');
 const { keepAlive } = require('./Controller/KeepAliveController');
+const { uploadSheet } = require('./Controller/SheetUploadController');
 const router = Router();
 
 router.get('/getCategories', getCategories)
@@ -22,11 +23,12 @@ router.patch('/changeStatus/:_id', changeStatus)
 
 router.post('/createOrder',createOrder)
 router.post('/getOrders',getOrders)
-router.post('/getCurrentDayOrders', getCurrentDayOrders)
+router.get('/getCurrentDayOrders', getCurrentDayOrders)
 router.get('/countCurrentDayOrders', countCurrentDayOrders)
 router.get('/getDailyOrders', getDailyOrders)
 router.patch('/updateOrderStatus', updateOrderStatus)
 router.post('/updateOrder', updateOrder)
+router.get('/getMonthlyOrders', getMonthlyOrders)
 
 router.post('/addExpense', addExpense)
 router.get('/getExpenses', getExpenses)
@@ -38,5 +40,6 @@ router.get('/getCash', getCash)
 router.post('/addCash', addCash)
 
 router.get('/keepAlive', keepAlive)
+
 
 module.exports = router;
