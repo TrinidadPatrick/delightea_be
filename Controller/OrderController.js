@@ -43,7 +43,7 @@ module.exports.getDailyOrders = async (req, res) => {
   console.log(newDate)
   try {
     const response = await Order.find({
-      created_at: { $gte: dateFrom, $lte: dateTo },
+      // created_at: { $gte: dateFrom, $lte: dateTo },
       $or: [{ status: 'Done' }, { status: 'Cancelled' }]
     });
     console.log(response)
