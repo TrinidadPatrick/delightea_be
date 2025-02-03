@@ -40,7 +40,7 @@ module.exports.getDailyOrders = async (req, res) => {
   const newDate = new Date(date)
   const dateFrom = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 0, 0, 0, 0);
   const dateTo = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 23, 59, 59, 999);
-  return newDate.toString()
+  return res.status(200).json(newDate.toString());
   // try {
   //   const response = await Order.find({
   //     created_at: { $gte: dateFrom, $lte: dateTo },
