@@ -3,9 +3,11 @@ const Expenses = require('../Models/ExpenseModel');
 
 module.exports.createOrder = async (req, res) => {
   const {order_id, items, total_price, change_price, customer_name} = req.body;
+  const now = new Date();
+  const phTime = new Date(now.getTime() + 8 * 60 * 60 * 1000);
 
   try {
-    const response = await Order.create({order_id, items, total_price, change_price, customer_name});
+    const response = await Order.create({order_id, items, total_price, change_price, customer_name, created_at: phTime});
     res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({message : error.message});
@@ -36,12 +38,12 @@ module.exports.getOrders = async (req, res) => {
 
 module.exports.getDailyOrders = async (req, res) => {
   const date = req.query.date
-  const [day, month, year] = date.split('/');
-  const dateObject = new Date(year, month - 1, day);
   const newDate = new Date(date)
-  const dateFrom = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 0, 0, 0, 0);
-  const dateTo = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 23, 59, 59, 999);
-  // return res.status(200).json(newDate.toString());
+  // const dateFrom = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 0, 0, 0, 0);
+  // const dateTo = new Date(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 23, 59, 59, 999);
+  const dateFrom = new Date(Date.UTC(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 0, 0, 0, 0));
+  const dateTo = new Date(Date.UTC(newDate.getFullYear(), newDate.getMonth(), newDate.getDate(), 23, 59, 59, 999));
+  
   try {
     const response = await Order.find({
       created_at: { $gte: dateFrom, $lte: dateTo },
@@ -56,9 +58,9 @@ module.exports.getDailyOrders = async (req, res) => {
 }
 
 module.exports.getCurrentDayOrders = async (req, res) => {
-  const date = new Date();
-  const dateFrom = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
-  const dateTo = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+  const now = new Date();
+  const dateFrom = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
+  const dateTo = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
   try {
     const response = await Order.find({created_at: {$gte: dateFrom, $lte: dateTo}, status: 'active'});
     res.status(200).json(response);
@@ -68,9 +70,9 @@ module.exports.getCurrentDayOrders = async (req, res) => {
 }
 
 module.exports.countCurrentDayOrders = async (req, res) => {
-  const date = new Date();
-  const dateFrom = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0, 0);
-  const dateTo = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+  const now = new Date();
+  const dateFrom = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
+  const dateTo = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
   
   try {
     const response = await Order.find({created_at: {$gte: dateFrom, $lte: dateTo}, status: 'active'}).countDocuments();
