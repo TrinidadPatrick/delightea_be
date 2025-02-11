@@ -58,9 +58,11 @@ module.exports.getDailyOrders = async (req, res) => {
 }
 
 module.exports.getCurrentDayOrders = async (req, res) => {
+  console.log("Hello")
   const now = new Date();
   const dateFrom = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
   const dateTo = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
+  console.log(dateFrom, dateTo)
   try {
     const response = await Order.find({created_at: {$gte: dateFrom, $lte: dateTo}, status: 'active'});
     res.status(200).json(response);
