@@ -10,7 +10,7 @@ module.exports.addExpense = async (req, res) => {
     }
 };
 
-module.exports.getExpenses = async (req, res) => {4
+module.exports.getExpenses = async (req, res) => {
     const dateString = req.query.date;
 
     try {
