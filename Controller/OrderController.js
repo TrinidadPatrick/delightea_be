@@ -58,8 +58,8 @@ module.exports.getDailyOrders = async (req, res) => {
 }
 
 module.exports.getCurrentDayOrders = async (req, res) => {
- const dateFrom = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
- const dateTo = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 999));
+//  const dateFrom = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 0, 0, 0, 0));
+//  const dateTo = new Date(Date.UTC(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 23, 59, 59, 999));
   try {
     const response = await Order.find({status: 'active'});
     res.status(200).json(response);
@@ -69,12 +69,9 @@ module.exports.getCurrentDayOrders = async (req, res) => {
 }
 
 module.exports.countCurrentDayOrders = async (req, res) => {
-  const now = new Date();
-  const dateFrom = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0));
-  const dateTo = new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999));
   
   try {
-    const response = await Order.find({created_at: {$gte: dateFrom, $lte: dateTo}, status: 'active'}).countDocuments();
+    const response = await Order.find({status: 'active'}).countDocuments();
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json({message : error.message});
