@@ -119,7 +119,8 @@ module.exports.getMonthlyOrders = async (req, res) => {
       {
         $match: {
           created_at: { $gte: dateFrom, $lte: dateTo },
-          $or: [{ status: 'Done' }, { status: 'Cancelled' }]
+          //Only get done status
+          $and: [{ status: 'Done' }]
         }
       },
       {
