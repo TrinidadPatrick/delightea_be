@@ -93,6 +93,9 @@ module.exports.getMonthlyOrders = async (req, res) => {
   const dateFrom = new Date(date.split('/')[0])
   const dateTo = new Date(date.split('/')[1])
 
+  console.log(dateFrom)
+  console.log(dateTo)
+
   function formatDateToString(date) {
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return date.toLocaleDateString("en-US", options);
@@ -138,6 +141,7 @@ module.exports.getMonthlyOrders = async (req, res) => {
       const expense = summaryExpenses[date] || 0
       return { date, dailySale,  expense, totalSales }
     }).sort((a, b) => new Date(a.date) - new Date(b.date))
+    console.log(dailySales)
     return res.status(200).json(dailySales);
   } catch (error) {
     console.log(error)
