@@ -148,3 +148,13 @@ module.exports.getMonthlyOrders = async (req, res) => {
     return res.status(500).json({message : error.message});
   }
 }
+
+module.exports.deleteOrder = async (req, res) => {
+  const {_id} = req.params;
+  try {
+    const response = await Order.findByIdAndDelete(_id);
+    res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json({message : error.message});
+  }
+}
